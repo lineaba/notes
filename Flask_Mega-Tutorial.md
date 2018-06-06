@@ -1,14 +1,14 @@
 [Tutorial here](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
-# General Flask structure#
+# General Flask structure #
 ```
-#Using [PROJECT] as the dummy-name of the project - in implementation you would replace this with an actual project-name
+#Using [PROJECT] as the dummy-name of the project - in implementation you would replace this with an actual project-name  
 [PROJECT]/
-  venv/ #the virtual environment
-  app/ #app-folder
-  [PROJECT].py #Main application module - The executed file
-    __init__.py #imports flask and make a flask instance?
-    routes.py #URL routes and their callback function
+  venv/             #the virtual environment
+  app/              #app-folder
+  [PROJECT].py      #Main application module - The executed file
+    __init__.py     #imports flask and make a flask instance?
+    routes.py       #URL routes and their callback function
 ```
 
 # Chapter 1 #
