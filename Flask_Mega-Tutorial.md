@@ -16,10 +16,10 @@
 Using a virtual environment means that you can use a specific version of something like flask for one project, while using another version for another project. This is because rather than making an installation for the entire machine, the installation is applied directly to the virtual environment. 
 I wonder how this actually works. If I have a bunch of different virtual environment, do I have individual maps saved multiple times, taking up desk space? Or is it more like a git-type system, where the system just keeps track of which changes to apply to which “branch”, assuming that each virtual environment was equivalent to a branch?
 
-#Activating a virtual environment  
-(assuming it is already installed, and that I have navigated to the correct folder)
-
 ```
+#Activating a virtual environment    
+(assuming it is already installed, and that I have navigated to the correct folder)  
+
 venv\Scripts\active
 ```
 
@@ -32,5 +32,5 @@ The fuction decorated with ```@app.route``` should give instructions about what 
 
 
 ## Setting the flask environmental variable ##
-(Assuming that the virtual environment have already been activated - see above for how-to)
-```se FLASK_APP = [PROJECT].py```
+(Assuming that the virtual environment have already been activated - see above for how-to)  
+```set FLASK_APP = [PROJECT].py```
