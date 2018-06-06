@@ -43,3 +43,11 @@ By creating mock-objects, we can focus on developing one specific part of the ap
 
 ## Templates ##
 By creating templates, it becomes easier to manage elements that are displayed across multiple pages, such as a menu bar. If we did not use templates, we would have to repeat the code for the menubar in the layout of each page. This both leads to repetition, both what is worse, it also means that if I wanna change something about the menubar, then I have to do it in everysimple page layout. By having a template instead, that I can apply to each page, I only need to make one change to the template, and the change will be reflected across all the pages where it occurs. 
+
+## Placeholders ##
+Ïn templates, there will sometimes be elements that we can't add ahead of run-time. A simple example would be if I had a page with the headline  
+Hello [username]!
+Where I would have the first name of the user who is logged in, take up the spot, where username is currently a placeholder. 
+We use placeholders for elements of dynamic content, i.e. whatever is displayed there is not permanent or fixed.
+In the .html code, we use ```{{ }}``` (double curly braces) around the placeholder.
+
