@@ -5,4 +5,4 @@ Hopefully it will be useful as a place of reference for myself in the future.
 All explanations are created with (future) me in mind, so many things might be left implicit, and will probably not be useable for anyone beside me.
 
 # INDEX #
-[1. The Flaks Mega-Tutorial notes]()
+[1. The Flaks Mega-Tutorial notes](https://github.com/lineaba/notes/blob/master/Flask_Mega-Tutorial.md)
