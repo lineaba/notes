@@ -1,6 +1,6 @@
 [Tutorial here](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
-# General Flask structure #
+# General Flask project-structure #
 ```
 #Using [PROJECT] as the dummy-name of the project - in implementation you would replace this with an actual project-name  
 [PROJECT]/
@@ -9,6 +9,7 @@
   app/              #app-folder
     __init__.py     #imports flask and make a flask instance?
     routes.py       #URL routes and their callback function
+    templates/
 ```
 
 # Chapter 1 - Getting started#
@@ -43,11 +44,16 @@ By creating mock-objects, we can focus on developing one specific part of the ap
 
 ## Templates ##
 By creating templates, it becomes easier to manage elements that are displayed across multiple pages, such as a menu bar. If we did not use templates, we would have to repeat the code for the menubar in the layout of each page. This both leads to repetition, both what is worse, it also means that if I wanna change something about the menubar, then I have to do it in everysimple page layout. By having a template instead, that I can apply to each page, I only need to make one change to the template, and the change will be reflected across all the pages where it occurs. 
+We don't just use templates for repeated elements - all layout is contained in template files (.HTML files stored in the template folder).  
 
-## Placeholders ##
+To display the layout defined in a template, we make the function return a ```render_template()``` call. The render_template function takes the name of the file containing the template as an argument, along with specification of values for any dynamic elements (see below).
+
+## Dynamic elements / Placeholders ##
 Ïn templates, there will sometimes be elements that we can't add ahead of run-time. A simple example would be if I had a page with the headline  
 Hello [username]!
 Where I would have the first name of the user who is logged in, take up the spot, where username is currently a placeholder. 
 We use placeholders for elements of dynamic content, i.e. whatever is displayed there is not permanent or fixed.
-In the .html code, we use ```{{ }}``` (double curly braces) around the placeholder.
+In the .html code, we use ```{{ }}``` (double curly braces) around the placeholder.  
+We don't just use templates for repeated elements - all layout is contained in template files (.HTML files stored in the template folder).  
 
+To display the layout defined in a template, we make the function return a ```render_template()``` call. The render_template function takes the name of the file containing the template as an argument, along with specification of values for any 
