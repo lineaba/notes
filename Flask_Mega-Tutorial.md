@@ -22,7 +22,7 @@ I wonder how this actually works. If I have a bunch of different virtual environ
 #Activating a virtual environment    
 (assuming it is already installed, and that I have navigated to the correct folder)  
 
-venv\Scripts\active
+venv\Scripts\activate
 ```
 
 ### Decorators ###
