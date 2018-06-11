@@ -1,11 +1,23 @@
 [Tutorial here](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
+# Running the application #
+- Navigate to the project folder
+- Activate virtual environment
+```venv\Scripts\activate```
+- Set the flask app
+```set FLASK_APP = [PROJECT].py```
+- Run the app
+```flask run```
+- Open app in browser
+```localhost:5000```
+
 # General Flask project-structure #
 ```
 #Using [PROJECT] as the dummy-name of the project - in implementation you would replace this with an actual project-name  
 [PROJECT]/
   venv/             #the virtual environment
   [PROJECT].py      #Main application module - The executed file
+  config.py         #Contains the defintion for the config class where secret keys etc. are defined.
   app/              #app-folder
     __init__.py     #imports flask and make a flask instance?
     routes.py       #URL routes and their callback function
@@ -13,7 +25,7 @@
       base.html     #contains html for elements which should be present in all templates
 ```
 
-# Chapter 1 - Getting started#
+# Chapter 1 - Getting started #
 ### Virtual environment ###
 Using a virtual environment means that you can use a specific version of something like flask for one project, while using another version for another project. This is because rather than making an installation for the entire machine, the installation is applied directly to the virtual environment. 
 I wonder how this actually works. If I have a bunch of different virtual environment, do I have individual maps saved multiple times, taking up desk space? Or is it more like a git-type system, where the system just keeps track of which changes to apply to which “branch”, assuming that each virtual environment was equivalent to a branch?
@@ -107,3 +119,12 @@ In the template that inherits from the base, the following is the structure:
 ```
 
 ![templates](https://user-images.githubusercontent.com/32916783/41062951-1e3e38ea-698c-11e8-836e-c4e31deb08d5.png)
+
+# Chapter 3 - templates #  
+### Flask-WTF ###  
+An extension for creating and handling forms
+
+### SECRET_KEY ###
+The secret key is used in most falsk applications. It is a cryptographic key, to protect against CSRF (Cross-site Request Forgery)
+
+_Next part - User Login Form_
