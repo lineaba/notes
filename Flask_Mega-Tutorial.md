@@ -21,8 +21,10 @@
   app/              #app-folder
     __init__.py     #imports flask and make a flask instance?
     routes.py       #URL routes and their callback function
+    forms.py
     templates/
       base.html     #contains html for elements which should be present in all templates
+      login.html    #Html or login webform (extends base.html)
 ```
 
 # Chapter 1 - Getting started #
@@ -121,10 +123,42 @@ In the template that inherits from the base, the following is the structure:
 ![templates](https://user-images.githubusercontent.com/32916783/41062951-1e3e38ea-698c-11e8-836e-c4e31deb08d5.png)
 
 # Chapter 3 - templates #  
-### Flask-WTF ###  
-An extension for creating and handling forms
+
+### Configurations ###
+Because Flask and Flask extensions gives the user the possibility to determine certain things, those decisions needs to be specified somewhere. This could technically be done in the app file, but it is usually done in a config file on its own. 
+The author suggests writing a config class in a seperate python file. 
+In this chapter, we only have one thing that we need to configurate: the secret key (see below).
+The configurations should to be applied to the app, so in the ```__init__.py``` file, we'll import it and create an instance of the class
+
+```python
+from config import Config #lower case config is name of file, uppercase config is name of class
+
+...
+
+app.config.from_object(Config)
+```
 
 ### SECRET_KEY ###
-The secret key is used in most falsk applications. It is a cryptographic key, to protect against CSRF (Cross-site Request Forgery)
+The secret key is used in most flask applications. It is a cryptographic key, to protect against CSRF (Cross-site Request Forgery)
+The secret key is used to generate signatures or tokens.
 
-_Next part - User Login Form_
+### Flask-WTF ###  
+An extension for creating and handling forms
+Using Flask-WTF we can create webforms. A webform is represented as a python class. Each field is defined as a class variable.
+WTF-forms have many field-types. Each is a class, and when creating a field, it is an instantiation of that class, so it has to be called with arguments. (Below I will include the type of fields that the microblog is using so far - other field classes are documents [here](http://wtforms.readthedocs.io/en/latest/fields.html)
+
+Because all the specific fieldtypes inherit from a field baseclass, they are all constructed with the following default parameters: (label=None, validators=None, filters=(), description='', id=None, default=None, widget=None, render_kw=None, \_form=None, \_name=None, \_prefix='', \_translations=None, \_meta=None).  
+When we initialize any type of field we can construct it with the value we wish for these parameters, or we can just let it default. 
+Usually we would at least want to set the label (the first argument, given as a string), and potentially also a validator for datareuqired, if we don't wish to let the user submit an empty field
+
+```python
+StringField #Field for Stringinputs - e.g. username, name, etc.
+PasswordField #Field for password inputs
+BoolenField #This is a checkbox, i.e., user can either leave it blank or fill it in. Can be used for remember-me at the end of the form
+SubmitField #A button for submitting all the information filled into the form (unless a required field has not been field in yet), 
+```
+
+In order to be able to use any of these fieldypes, you will have to import them from wtforms
+The fieldtypes are predefined with HTML rendering. 
+
+_currently at form templates_
