@@ -158,7 +158,27 @@ BoolenField #This is a checkbox, i.e., user can either leave it blank or fill it
 SubmitField #A button for submitting all the information filled into the form (unless a required field has not been field in yet), 
 ```
 
-In order to be able to use any of these fieldypes, you will have to import them from wtforms
+In order to be able to use any of these fieldtypes, you will have to import them from wtforms
 The fieldtypes are predefined with HTML rendering. 
 
-_currently at form templates_
+### Form Templates ### 
+When adding the different types of input fields to the html template, very little code is required. The ```form``` object has to be passed to the template. 
+Here are the snippets needed:
+
+```html
+<form action ="" method = "post" novalidate>
+  {{ form.hidden_tag() }} #hidden field with a token used to protect the form against CSRF attacks - uses SECRET_KEY in the configs
+  <p>
+    {{form.[StringField_name].label }} <br> 
+  
+  _still on form templates_
+    {{ form.[StringField_name](size = 32) }}
+  </p>
+  <p>
+    {{ form.[PasswordField_name].label }} <br>\
+    {{ form.[PasswordField_name](size = 32) }}
+  </p>
+  <p>{{ form.[BooleanField_name]() }} {{ form.[BooleanField_name].label }}</p>
+        <p>{{ form.[SubmitField_name]() }}</p>
+</form>
+```
