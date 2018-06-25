@@ -142,7 +142,22 @@ app.config.from_object(Config)
 The secret key is used in most flask applications. It is a cryptographic key, to protect against CSRF (Cross-site Request Forgery)
 The secret key is used to generate signatures or tokens.
 
-### Flask-WTF ###  
+### Jinja ```with``` ###
+With is a scoping operator. When a variable is declared in a Jinja template within curly braces following the ```with``` keyword it will only remain in scope untill the endwith statement
+
+```{% with %}``` 
+```{% endwith %}```
+
+### URL generation ###
+If you give the URLs directly to functions in templates and the source code, you will have to search and replace them all if you decide to rename parts of URL's or in some other way reorganize the URLs
+Flask has a function called url_for, which can automatically generate urls that map to a certain view function.
+E.g. 
+```url_for('login')``` will return ```\login``` which links to the login view function. 
+You need to pass the endpoint name to the url_for function. The endpoint name is the name of the view function. 
+
+
+
+## Flask-WTF ##  
 An extension for creating and handling forms
 Using Flask-WTF we can create webforms. A webform is represented as a python class. Each field is defined as a class variable.
 WTF-forms have many field-types. Each is a class, and when creating a field, it is an instantiation of that class, so it has to be called with arguments. (Below I will include the type of fields that the microblog is using so far - other field classes are documents [here](http://wtforms.readthedocs.io/en/latest/fields.html)
@@ -163,11 +178,15 @@ The fieldtypes are predefined with HTML rendering.
 
 ### Form Templates ### 
 When adding the different types of input fields to the html template, very little code is required. The ```form``` object has to be passed to the template. 
+
+```{{ form.[field_name].label }}``` specifies the placement of the fields label.
+```{{ form.[field_name]() }}``` specifies the placement of the input field. Arguments passed to this function (such as ```size```)will be added as attributes to the HTML element. This as also the way to attach CSS classes or ID's to the fields.  
+
 Here are the snippets needed:
 
 ```html
 <form action ="" method = "post" novalidate>
-  {{ form.hidden_tag() }} #hidden field with a token used to protect the form against CSRF attacks - uses SECRET_KEY in the configs
+  {{ form.hidden_tag() }} <!--hidden field with a token used to protect the form against CSRF attacks - uses SECRET_KEY in the configs-->
   <p>
     {{form.[StringField_name].label }} <br> 
   
@@ -182,3 +201,30 @@ Here are the snippets needed:
         <p>{{ form.[SubmitField_name]() }}</p>
 </form>
 ```
+### Hidden_tag() ###
+The hidden_tag() function, called on the form object, crrates a hidden field with a token. This is done to protect the form against CSRF attacked. This function uses the SECRET_KEY variable (which can bedeclared within the config file.
+
+### The form tag ### 
+The ```<form>``` tag is a container for the webform, i.e. the html that pertains to the webform goes within this tag.
+The tag has an attribute ```action``` which gives the browser information about which URL it should use when information is submitted. If no path is given, as in the example above where action is set to be an empty string ```action = ""```the form will be submitted to the URL that is the current path (i.e. the URL that is currently displayed in the browser's adress bar.)
+In the form tag there is also a ```method``` attribute. This is used to indicate which HTTP method we wish to send the form-input to the server with. Technically form input can be send using both ```get``` and ```post```. If using ```get```, all the information will be attached to the URL. By using ```post``` (as in the example above), the information is sent in the body of the request.  
+The third attribute is the ```novalidate```. It is used to disable the browsers own validation mechanisms, so the flask application can perform its own validation instead.
+
+### Flash ###
+Flask-WTF has a build in message flashing system to give feedback to the user based on their actions.
+Using the Flash system, you can save a message at the end of a request and access it in the next request (the flash message can only be called once, once it has been called it is no longer available).
+
+### Validation ###
+FormWTF handles a lot of the field validation.
+If you want a field to be validated, you need to add ```validators =[[validator_type]()]``` as an argument when instantiating a field-object. 
+
+An example of a validator is the ```DataRequired()``` which specifies that the field cannot be left empty
+
+It needs to be explicitly stated if you want to display error messages to the user when a field cannot be validated. The following snippet will display the validation-error message when added within the ```<p> </p>``` tag of the field in the form template.
+  
+```{% for error in form.[field_name].errors %}
+   <span style="color: [color];">[{{ error }}]</span>
+   {% endfor %}```
+
+
+
